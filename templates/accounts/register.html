@@ -1,0 +1,208 @@
+{% load static %}
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Register — Neon</title>
+  <style>
+    :root{
+      --bg1:#04040b; --bg2:#07112a; --accent1:#7c3aed; --accent2:#06b6d4;
+      --glass:rgba(255,255,255,0.03); --glass-border:rgba(255,255,255,0.06);
+      --muted:#9fb0c8; --radius:14px;
+      --neon:0 0 20px rgba(124,58,237,0.4), 0 0 50px rgba(6,182,212,0.3);
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      height:100%;
+      background:linear-gradient(180deg,var(--bg1),var(--bg2));
+      display:flex;align-items:center;justify-content:center;
+      color:#e7f6ff;
+    }
+    .card{
+      width:550px;
+      background:rgba(255,255,255,0.02);
+      padding:36px 40px;
+      border-radius:var(--radius);
+      border:1px solid var(--glass-border);
+      box-shadow:0 0 60px rgba(2,6,23,0.6),var(--neon);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:'';
+      position:absolute;
+      inset:-2px;
+      border-radius:inherit;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      filter:blur(22px);
+      opacity:.08;
+      pointer-events:none;
+    }
+    h1{text-align:center;font-size:26px;margin-bottom:8px}
+    p{text-align:center;font-size:13px;color:var(--muted);margin-bottom:22px}
+    form{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px 20px;
+    }
+    label{
+      display:block;
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+    .input{
+      width:100%;
+      padding:12px 14px;
+      border-radius:12px;
+      background:transparent;
+      border:1px solid var(--glass-border);
+      color:inherit;
+      font-size:14px;
+      outline:none;
+      transition:.3s;
+    }
+    .input:focus{
+      border-color:rgba(124,58,237,0.6);
+      box-shadow:var(--neon);
+    }
+    .full-width{grid-column:1 / -1;}
+    .btn{
+      grid-column:1 / -1;
+      padding:14px;
+      border:0;
+      border-radius:12px;
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:white;
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+      transition:.3s;
+      margin-top:10px;
+    }
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:var(--neon);
+    }
+    .note{
+      text-align:center;
+      font-size:13px;
+      color:var(--muted);
+      margin-top:14px;
+    }
+    .note a{color:var(--accent2);text-decoration:none}
+    .note a:hover{text-decoration:underline}
+
+    /* 🔸 Error & success styles */
+    .alert {
+      grid-column:1 / -1;
+      padding:10px 14px;
+      border-radius:10px;
+      margin-bottom:8px;
+      font-size:14px;
+      animation:fadeIn 0.4s ease;
+    }
+    .alert-success {background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.4);color:#a7ffcb;}
+    .alert-error {background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#ffb3b3;}
+    .error-text {color:#ff8b8b;font-size:12px;margin-top:3px;}
+    @keyframes fadeIn {from{opacity:0;transform:translateY(-5px);}to{opacity:1;transform:none;}}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Ro'yxatdan o'tish</h1>
+    <p>Hisob yaratish uchun ma'lumotlaringizni kiriting</p>
+
+    <!-- 🔹 Django messages -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <!-- First and Last Name -->
+      <div>
+        <label for="first_name">Ism</label>
+        <input id="first_name" name="first_name" class="input" type="text" value="{{ request.POST.first_name }}">
+        {% if form.first_name.errors %}
+          <p class="error-text">{{ form.first_name.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div>
+        <label for="last_name">Familiya</label>
+        <input id="last_name" name="last_name" class="input" type="text" value="{{ request.POST.last_name }}">
+        {% if form.last_name.errors %}
+          <p class="error-text">{{ form.last_name.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Email -->
+      <div class="full-width">
+        <label for="email">Email</label>
+        <input id="email" name="email" class="input" type="email" value="{{ request.POST.email }}">
+        {% if form.email.errors %}
+          <p class="error-text">{{ form.email.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Phone -->
+      <div class="full-width">
+        <label for="phone">Telefon</label>
+        <input id="phone" name="phone" class="input" type="text" placeholder="+998 90 123 45 67" value="{{ request.POST.phone }}">
+        {% if form.phone.errors %}
+          <p class="error-text">{{ form.phone.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Profession -->
+      <div class="full-width">
+        <label for="profession">Kasb</label>
+        <input id="profession" name="profession" class="input" type="text" value="{{ request.POST.profession }}">
+        {% if form.profession.errors %}
+          <p class="error-text">{{ form.profession.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password">Parol</label>
+        <input id="password" name="password" class="input" type="password">
+        {% if form.password.errors %}
+          <p class="error-text">{{ form.password.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div>
+        <label for="confirm_password">Parolni tasdiqlang</label>
+        <input id="confirm_password" name="confirm_password" class="input" type="password">
+        {% if form.confirm_password.errors %}
+          <p class="error-text">{{ form.confirm_password.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Profile Image -->
+      <div class="full-width">
+        <label for="image">Profil rasmi</label>
+        <input id="image" name="image" class="input" type="file" accept="image/*">
+        {% if form.image.errors %}
+          <p class="error-text">{{ form.image.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn">Ro'yxatdan o'tish</button>
+    </form>
+
+    <div class="note">
+      Hisobingiz bormi? <a href="{% url 'login' %}">Kirish</a>
+    </div>
+  </div>
+</body>
+</html>

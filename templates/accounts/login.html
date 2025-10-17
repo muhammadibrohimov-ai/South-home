@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — Neon Super</title>
+  <style>
+    :root{
+      --bg1:#04040b; --bg2:#07112a; --accent1:#7c3aed; --accent2:#06b6d4;
+      --glass:rgba(255,255,255,0.03); --glass-border:rgba(255,255,255,0.05);
+      --muted:#9fb0c8; --radius:14px; --neon:0 0 25px rgba(124,58,237,.3),0 0 60px rgba(6,182,212,.2);
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg2));display:flex;align-items:center;justify-content:center;color:#e7f6ff}
+    .card{width:380px;background:rgba(255,255,255,0.02);padding:32px;border-radius:var(--radius);border:1px solid var(--glass-border);box-shadow:0 0 60px rgba(2,6,23,0.6),var(--neon);text-align:center;position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;inset:-2px;border-radius:inherit;background:linear-gradient(90deg,var(--accent1),var(--accent2));filter:blur(22px);opacity:.08;pointer-events:none}
+    h1{font-size:22px;margin:0 0 12px}
+    p{font-size:13px;color:var(--muted);margin-bottom:24px}
+    form{display:flex;flex-direction:column;gap:14px}
+    label{text-align:left;font-size:13px;color:var(--muted);margin-bottom:4px;display:block}
+    .input{width:100%;padding:12px 14px;border-radius:10px;background:transparent;border:1px solid var(--glass-border);color:inherit;font-size:14px;outline:none;transition:.25s}
+    .input:focus{border-color:rgba(124,58,237,0.5);box-shadow:var(--neon)}
+    .btn{padding:12px;border:0;border-radius:10px;background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;font-weight:700;cursor:pointer;transition:.25s}
+    .btn:hover{transform:translateY(-1px);box-shadow:var(--neon)}
+    .status{font-size:13px;color:var(--muted);margin-top:10px;min-height:18px}
+    .neon-border{position:absolute;inset:0;border-radius:inherit;pointer-events:none;animation:pulse 5s infinite alternate}
+    @keyframes pulse{from{opacity:.1;}to{opacity:.35;}}
+    .register-link{
+      margin-top:20px;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .register-link a{
+      color:var(--accent2);
+      font-weight:600;
+      text-decoration:none;
+      transition:.2s;
+    }
+    .register-link a:hover{
+      color:var(--accent1);
+      text-shadow:0 0 8px rgba(124,58,237,0.6);
+    }
+  </style>
+</head>
+<body>
+  {% if messages %}
+  <div style="position:absolute;top:20px;text-align:center;width:100%;">
+    {% for message in messages %}
+      <div style="
+        display:inline-block;
+        background:rgba(255,255,255,0.08);
+        border:1px solid rgba(255,255,255,0.15);
+        padding:10px 20px;
+        border-radius:10px;
+        color:#fff;
+        margin:4px;
+        box-shadow:0 0 15px rgba(255, 0, 0, 0.4);
+      ">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+
+  <div class="card">
+    <div class="neon-border"></div>
+    <h1>Login page</h1>
+    <p>Telefon raqamingiz va parolingizni kiriting</p>
+    <form id="loginForm" method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div>
+        <label for="phone">Telefon raqam</label>
+        <input id="phone" name="phone" class="input" type="text" placeholder="+998 90 123 45 67" required>
+      </div>
+      <div>
+        <label for="password">Parol</label>
+        <input id="password" name="password" class="input" type="password" placeholder="Parolingiz" required>
+      </div>
+      <button type="submit" class="btn">Kirish</button>
+      <div id="status" class="status">&nbsp;</div>
+    </form>
+
+    <div class="register-link">
+      Account yo‘qmi? <a href="{% url 'register' %}">Register qiling</a>
+    </div>
+  </div>
+</body>
+</html>
