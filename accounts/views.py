@@ -60,6 +60,7 @@ def register_view(request):
     return render(request=request, template_name='accounts/register.html')
 
 
+
 def logout_view(request):
     
     logout(request=request)
