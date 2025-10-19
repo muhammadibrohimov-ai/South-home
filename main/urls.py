@@ -10,9 +10,7 @@ from .views import (
 
 urlpatterns = [
     path('', home_page_view),
-    path('blog/', blog),
     path('contact/', contact),
     path('about/', about),
-    path('single-blog/', single_blog),
     path('listings/', listings),
 ]

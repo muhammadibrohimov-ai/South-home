@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -24,7 +25,6 @@ class Images(models.Model):
     class Meta:
         verbose_name = "Images"
         verbose_name_plural = 'Images'
-        
     
 
 class Home(models.Model):
@@ -52,6 +52,35 @@ class Home(models.Model):
         verbose_name = 'Home'
         verbose_name_plural = 'Home'
         
+        
+class Contact(models.Model):
+    phone = models.CharField(max_length=50)
+    email = models.EmailField()
+    address = models.CharField(max_length=200)
     
+    def save(self, *args, **kwargs):
+        
+        if not self.pk and Contact.objects.exists():
+            raise ValidationError("Faqatgina 1 ta contact yartish mumkin")
+
+        super().save(*args, **kwargs)
+        
+
+    def __str__(self):
+        return self.phone
+    
+    
+        
+        
+class Client(models.Model):
+    name = models.CharField(max_length=150)
+    preofession = models.CharField(max_length=200)
+    text = models.TextField()
+    title = models.CharField(max_length=150)
+    image = models.FileField(upload_to='clients/')
+    
+    
+    def __str__(self):
+        return self.name
     
             
