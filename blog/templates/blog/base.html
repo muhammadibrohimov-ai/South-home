@@ -41,27 +41,21 @@
                             </form>
                         </div>
 
-                        <!-- Catagories Widget -->
-                        <div class="south-catagories-card mb-70">
-                            <h5>Archive</h5>
-                            <ul class="catagories-menu">
-                                <li><a href="#">Radiology</a></li>
-                                <li><a href="#">Cardiology</a></li>
-                                <li><a href="#">Gastroenterology</a></li>
-                                <li><a href="#">Neurology</a></li>
-                                <li><a href="#">General surgery</a></li>
-                            </ul>
-                        </div>
 
                         <!-- Catagories Widget -->
                         <div class="south-catagories-card mb-70">
                             <h5>Categories</h5>
+                            
                             <ul class="catagories-menu">
-                                <li><a href="#">Radiology</a></li>
-                                <li><a href="#">Cardiology</a></li>
-                                <li><a href="#">Gastroenterology</a></li>
-                                <li><a href="#">Neurology</a></li>
-                                <li><a href="#">General surgery</a></li>
+
+                                <li><a href="/blog/">All categories</a></li>
+
+                                {% for category in categories %}
+
+                                <li><a href="/blog/category/{{ category.id }}">{{ category.name }}</a></li>
+
+                                {% endfor %}
+
                             </ul>
                         </div>
 

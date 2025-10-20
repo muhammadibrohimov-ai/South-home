@@ -7,34 +7,45 @@
 
 <div class="col-12 col-lg-8">
     
-    {% for blog in blogs %}
-
-    <!-- Single Blog Area -->
-    <div class="single-blog-area mb-50">
-        <!-- Post Thumbnail -->
-        <div class="blog-post-thumbnail">
-            <img src="{{ blog.image.url }}" alt="">
-        </div>
-        <!-- Post Content -->
-        <div class="post-content">
-            <!-- Date -->
-            <div class="post-date">
-                <a href="#">{{ blog.created_at }}</a>
+    {% if blogs %}
+        {% for blog in blogs %}
+        <!-- Single Blog Area -->
+        <div class="single-blog-area mb-50">
+            <!-- Post Thumbnail -->
+            <div class="blog-post-thumbnail">
+                <img src="{{ blog.image.url }}" alt="">
             </div>
-            <!-- Headline -->
-            <a href="#" class="headline">{{ blog.title }}</a>
-            <!-- Post Meta -->
-            <div class="post-meta">
-                <p>By <a href="#">Admin</a> | in <a href="#">{{ blog.category }}</a> | <a href="#">{{ blog.comments }} Comments</a></p>
-            </div>
-            <p>{{ blog.desc }}</p>
-            <!-- Read More btn -->
-            <a href="/blog/{{ blog.id }}" class="btn south-btn">Read More</a>
-        </div>
-    </div>
 
-    {% endfor %}
-    
+            <!-- Post Content -->
+            <div class="post-content">
+                <!-- Date -->
+                <div class="post-date">
+                    <a href="#">{{ blog.created_at|date:"M d, Y" }}</a>
+                </div>
+
+                <!-- Headline -->
+                <a href="#" class="headline">{{ blog.title }}</a>
+
+                <!-- Post Meta -->
+                <div class="post-meta">
+                    <p>By <a href="#">Admin</a> | in <a href="#">{{ blog.category.name }}</a> | 
+                    <a href="#">{{ blog.comments }} Comments</a></p>
+                </div>
+
+                <p>{{ blog.desc }}</p>
+
+                <!-- Read More btn -->
+                <a href="/blog/{{ blog.id }}" class="btn south-btn">Read More</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="single-blog-area mb-50 text-center">
+            <h1>No blogs in this category 😔</h1>
+        </div>
+    {% endif %}
+
+
 </div>
 
 

@@ -6,46 +6,32 @@
 
 <div class="col-12 col-lg-8">
 
-    {% comment %} {% for element in blog %} {% endcomment %}
 
 
   <div class="single-blog-area">
     <!-- Post Thumbnail -->
     <div class="blog-post-thumbnail">
-      <img src="{% static 'img/blog-img/blog3.jpg' %}" alt="" />
-    </div>
+      <img src="{{ blog.image.url }}" alt="" />
+    </div> 
     <!-- Post Content -->
     <div class="post-content">
       <!-- Date -->
       <div class="post-date">
-        <a href="#">March 09, 2018</a>
+        <a href="#">{{ blog.created_at }}</a>
       </div>
       <!-- Headline -->
-      <a href="#" class="headline">How to get the best deal for your house</a>
+      <a href="#" class="headline">{{ blog.title }}</a>
       <!-- Post Meta -->
       <div class="post-meta">
         <p>
-          By <a href="#">Admin</a> | in <a href="#">Uncategorized</a> |
-          <a href="#">2 Comments</a>
+          By <a href="#">Admin</a> | in <a href="#">{{ blog.category.name }}</a> |
+          <a href="#">{{ blog.comments }} Comments</a>
         </p>
       </div>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione quia
-        dolore debitis tenetur laborum neque deleniti quis atque autem, qui
-        blanditiis, ad aspernatur? Consequatur nemo, eveniet blanditiis
-        asperiores ex magni sit libero sint fugiat quibusdam ab eius aperiam,
-        iure facilis neque dolore earum architecto tempore et, quae? Omnis ex
-        suscipit debitis, obcaecati delectus est ab voluptate distinctio
-        voluptas. Deserunt saepe sunt ullam, animi sed vel error consectetur
-        incidunt. Ipsa facere eveniet natus quos ratione, minus quod cum ex,
-        laboriosam eius impedit cupiditate? Dolore, voluptates reiciendis quis
-        incidunt ducimus cumque placeat, similique nostrum quod enim quidem
-        culpa. Facere veniam cum accusantium cumque, explicabo nesciunt repellat
-        unde, quibusdam adipisci error quasi natus, pariatur perspiciatis odit
-        labore eos incidunt? Quidem doloremque atque nisi ea optio odio
-        aspernatur est eius!
+        {{ blog.desc }}
       </p>
-      <img class="mb-50" src="img/bg-img/hero3.jpg" alt="" />
+      {% comment %} <img class="mb-50" src="img/bg-img/hero3.jpg" alt="" />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia minus in
         recusandae cumque, laboriosam mollitia inventore nisi autem maiores
@@ -55,20 +41,11 @@
         aliquid voluptatibus ab atque inventore, est voluptates. Eum veniam hic
         velit, quia voluptates? Numquam aliquam accusantium hic iste, sequi nisi
         maiores minus iure eos est unde eum dolore amet suscipit?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus
-        accusamus accusantium nisi quas tempore quod placeat soluta, quam, ex,
-        pariatur doloremque, quasi ut vitae aspernatur quisquam dolores
-        consequatur deleniti sed perferendis consequuntur. Aut quod, dolorum
-        molestiae veritatis molestias, nemo sit, voluptatibus, quaerat
-        cupiditate magni dignissimos minus repellendus labore.
-      </p>
+      </p> {% endcomment %}
     </div>
   </div>
 
 
-  {% comment %} {% endfor %} {% endcomment %}
 
 
   <div class="comments-area">
