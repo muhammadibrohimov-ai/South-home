@@ -7,33 +7,33 @@
 
 <div class="col-12 col-lg-8">
     
-    
+    {% for blog in blogs %}
 
     <!-- Single Blog Area -->
     <div class="single-blog-area mb-50">
         <!-- Post Thumbnail -->
         <div class="blog-post-thumbnail">
-            <img src="{% static 'img/blog-img/blog1.jpg' %}" alt="">
+            <img src="{{ blog.image.url }}" alt="">
         </div>
         <!-- Post Content -->
         <div class="post-content">
             <!-- Date -->
             <div class="post-date">
-                <a href="#">March 09, 2018</a>
+                <a href="#">{{ blog.created_at }}</a>
             </div>
             <!-- Headline -->
-            <a href="#" class="headline">How to get the best deal for your house</a>
+            <a href="#" class="headline">{{ blog.title }}</a>
             <!-- Post Meta -->
             <div class="post-meta">
-                <p>By <a href="#">Admin</a> | in <a href="#">Uncategorized</a> | <a href="#">2 Comments</a></p>
+                <p>By <a href="#">Admin</a> | in <a href="#">{{ blog.category }}</a> | <a href="#">{{ blog.comments }} Comments</a></p>
             </div>
-            <p>Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odiomattis effic iturut magna. Pellentesque sit am et tellus blandit. Etiam nec odio vestibul. Etiam nec odio vestibulum est mat tis effic iturut magna. Curabitur rhoncus auctor eleifend.</p>
+            <p>{{ blog.desc }}</p>
             <!-- Read More btn -->
-            <a href="/blog/1" class="btn south-btn">Read More</a>
+            <a href="/blog/{{ blog.id }}" class="btn south-btn">Read More</a>
         </div>
     </div>
 
-    
+    {% endfor %}
     
 </div>
 

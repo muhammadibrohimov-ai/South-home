@@ -2,9 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
-
-
 class BlogCategory(models.Model):
     name = models.CharField(max_length=150)
     is_active = models.BooleanField(default=True)
