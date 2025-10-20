@@ -6,6 +6,7 @@ from .views import (
     about, 
     single_blog,
     listings,
+    single_listing,
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('contact/', contact),
     path('about/', about),
     path('listings/', listings),
+    path('listings/<int:id>', single_listing),
 ]

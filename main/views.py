@@ -84,4 +84,8 @@ def about(request):
 @login_required()
 def listings(request):
     
-    return render(request=request, template_name='listings.html', context={"homes" : Home.objects.all()})
+    return render(request=request, template_name='listings.html', context={"homes" : Home.objects.all(), 'categories':Category.objects.all()})
+
+
+def single_listing(request, id):
+    return render(request=request, template_name='single-listings.html')
