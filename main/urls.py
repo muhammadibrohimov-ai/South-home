@@ -14,5 +14,5 @@ urlpatterns = [
     path('contact/', contact),
     path('about/', about),
     path('listings/', listings),
-    path('listings/<int:id>', single_listing),
+    path('listings/<int:id>/', single_listing),
 ]
